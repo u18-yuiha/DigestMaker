@@ -169,8 +169,8 @@ class Application(tk.Frame):
         self.create_interval_lbl()
         self.create_main_btn()
         self.create_help_btn()
-        self.create_entry1()
-        self.create_entry2()
+        self.create_input_entry()
+        self.create_output_entry()
         self.create_lb()
         self.create_th_scrollbar()
         self.create_silence_lb()
@@ -185,47 +185,61 @@ class Application(tk.Frame):
         self.frame1['relief'] = 'ridge'
         self.frame1['borderwidth'] = 10
         self.frame1.grid() 
+    
     #input label
     def create_input_label(self):
         self.input_lbl = tk.Label(root,text = '入力',width = 20,fg='#ff0000')
         self.input_lbl.place(x = 10, y = 100)
 
+    
         #input 参照
     def create_input_btn(self):
         self.input_btn = tk.Button(root, text = '参照',bg = '#87cefa',command = self.input_open_file)
         self.input_btn.place(x = 550,y = 100)
+    
         #output label
     def create_output_lbl(self):
         self.output_lbl = tk.Label(root,text = '出力',width = 20,fg='#ff0000')
         self.output_lbl.place(x = 10, y = 150)
+    
         #output参照
     def create_output_btn(self):
         self.output_btn = tk.Button(root,text = '参照',bg = '#87cefa',command = self.output_open_file)
         self.output_btn.place(x = 550,y = 150)
+    
         #threshold
     def create_thre_lbl(self):
         self.thre_lbl = tk.Label(root,text = '無音とみなす音量',bg = '#87cefa')
         self.thre_lbl.place(x = 100,y = 180)
+    
         #無音区間
     def create_interval_lbl(self):
         self.interval_lbl = tk.Label(root,text = '無音とみなす区間',bg = '#87cefa')
         self.interval_lbl.place(x = 250,y = 180)
+    
     #実行ボタン
     def create_main_btn(self):
         self.main_btn = tk.Button(root, text = '実行',bg = '#87cefa',width = 20,command = self.Execute)
         self.main_btn.place(x = 400,y = 230)
+    
         #helpボタン
     def create_help_btn(self):
         self.help_btn = tk.Button(root,text = 'ヘルプ')
         self.help_btn.place(x= 550,y = 10)
+    
         #文字入力するところ（入力）
-    def create_entry1(self):
-        self.entry1 = ttk.Entry(root ,width = 70) 
-        self.entry1.place(x = 100,y = 100)
+    def create_input_entry(self):
+        self.input_entry = ttk.Entry(root ,width = 70) 
+        self.input_entry.place(x = 100,y = 100)
+    
         #文字入力するところ（出力）
-    def create_entry2(self):
-        self.entry2 = ttk.Entry(root ,width = 70) 
-        self.entry2.place(x = 100,y = 150)
+    def create_output_entry(self):
+        self.output_entry = ttk.Entry(root ,width = 70) 
+        self.output_entry.place(x = 100,y = 150)
+ 
+ 
+ 
+"""   
     #スレッショルドのスクロールボックス
     def create_lb(self):
         th_listarray = [i for i in range(-45,-10)]
@@ -234,9 +248,11 @@ class Application(tk.Frame):
         self.lb.bind('<<ListboxSelect>>',self.th_selected)
         self.lb.configure(selectmode = "single")
         self.lb.place(x = 100,y = 210)
+    
     def create_th_scrollbar(self):
         self.th_scrollbar = ttk.Scrollbar(root,orient = tk.VERTICAL,command =  self.lb.yview)
         self.th_scrollbar.place(x = 80,y = 230)
+    
         #無音区間のスクロールボックス
     def create_silence_lb(self):
         silence_list =  [i / 10 for i in range(1,51)]
@@ -245,11 +261,14 @@ class Application(tk.Frame):
         self.silence_lb.bind('<<ListboxSelect>>', self.silence_selected)
         self.silence_lb.configure(selectmode = "single")
         self.silence_lb.place(x = 250, y = 210)
+    
     def create_silence_scrollbar(self):
         self.silence_scrollbar = ttk.Scrollbar(root,orient = tk.VERTICAL ,command =  self.silence_lb.yview)
         self.silence_scrollbar.place(x = 230,y = 230)
         self.silence_lb['yscrollcommand'] = self.silence_scrollbar.set
-        #説明のためのラベル
+        
+"""
+    #説明のためのラベル
     def create_explain_lbl(self):
         self.explain_lbl = tk.Label(root,text = "動画を入力して、出力先を決めてください。\nスレッショルドは無音とみなす音量、\n無音区間は無音の部分が何秒続いたらカットするかを決めます")
         self.explain_lbl.place(x = 10, y = 10)
@@ -259,8 +278,8 @@ class Application(tk.Frame):
     def input_open_file(self):
         input_file = tkfd.askopenfilenames(filetypes = [('mp4','*.mp4'),('MOV','*.MOV')])
         input_file = ''.join(input_file)
-        self.entry1.insert('end',input_file)
-        self.input_path = self.entry1.get()
+        self.input_entry.insert('end',input_file)
+        self.input_path = self.input_entry.get()
         print(self.input_path)
         #print(os.path.isfile(self.input_path))
         return self.input_path
@@ -268,13 +287,13 @@ class Application(tk.Frame):
     def output_open_file(self):
         output_file = tkfd.asksaveasfilename(filetypes= [('mp4','*.mp4')])
         output_file = ''.join(output_file)
-        self.entry2.insert('end',output_file)
-        self.entry2.insert('end','.mp4')
-        self.output_path = self.entry2.get()
+        self.output_entry.insert('end',output_file)
+        self.output_entry.insert('end','.mp4')
+        self.output_path = self.output_entry.get()
         #print(self.output_path)
         #print(os.path.exists(self.output_path))
         return self.output_path
-
+"""
     #スレッショルド（無音閾値）のリストボックスから値をとってくる
     def th_selected(self,th_event):
         #ここをforで回さないと、
@@ -284,13 +303,14 @@ class Application(tk.Frame):
             self.th_item = self.lb.get(item_index)
             #print(self.th_item)
             return self.th_item
+    
     #無音区間のリストボックスから値をとってくる
     def silence_selected(self,silence_event):
             for item_index in self.silence_lb.curselection():    #indexを取得
                 self.silence_item = self.silence_lb.get(item_index)
                 #print(self.silence_item)
                 return self.silence_item
-    
+"""    
     #def change(self,path):
         #self.path =  path.replace("\\","/")
         #return self.path
@@ -344,7 +364,7 @@ class Application(tk.Frame):
 
     def Execute(self):
         #入力値の検査
-        self.input_path = self.entry1.get()
+        self.input_path = self.input_entry.get()
         print(self.input_path)
         self.output_path = self.entry2.get()
         print(self.output_path)
