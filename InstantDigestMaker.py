@@ -310,6 +310,16 @@ class Application(tk.Frame):
             self.notExistFlag = False
         return self.notExistFlag
 
+    def thIntValidator(self,th_item):
+        self.thFlag = True
+        if -4 < self.th_item < -10:
+            pass
+        else:    
+            showError("-40~-10までの整数を入力してください（半角英数）")
+            self.thFlag = False
+        return self.thFlag
+    
+
     def validator(self,input_path,output_path): 
         self.inputFlag =self.inputValidator(self.input_path)
         self.outputFlag = self.outputValidator(self.output_path)
@@ -334,12 +344,23 @@ class Application(tk.Frame):
         self.silence_item = self.silence_entry.get()
         print(self.silence_item)
         print(self.th_item)
-        self.validatorFlag = self.validator(self.input_path,self.output_path)
-        if self.validatorFlag == True :
-            run(self.input_path,self.output_path,self.th_item ,self.silence_item)
-        else:
-            showInfo("処理を中止します。")
+        try:
+            self.th_item = int(self.th_item)
+        except ValueError:
+            showError("-40~-10までの整数を入力してください（半角英数)")
             pass
+        try:
+            self.silence_item = float(self.silence_item)
+        except ValueError:
+            showError("0.1~3.0までの、小数点第一位までを入力してください（半角英数）")
+            pass
+        else:
+            self.validatorFlag = self.validator(self.input_path,self.output_path)
+            if self.validatorFlag == True :
+                run(self.input_path,self.output_path,self.th_item ,self.silence_item)
+            else:
+                showInfo("処理を中止します。")
+                pass
 
 
 if __name__ == "__main__":
