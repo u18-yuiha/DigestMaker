@@ -171,10 +171,8 @@ class Application(tk.Frame):
         self.create_help_btn()
         self.create_input_entry()
         self.create_output_entry()
-        self.create_lb()
-        self.create_th_scrollbar()
-        self.create_silence_lb()
-        self.create_silence_scrollbar()
+        self.create_th_entry()
+        self.create_silence_entry()
         self.create_explain_lbl()
         
      #frame
@@ -236,38 +234,20 @@ class Application(tk.Frame):
     def create_output_entry(self):
         self.output_entry = ttk.Entry(root ,width = 70) 
         self.output_entry.place(x = 100,y = 150)
- 
- 
- 
-"""   
-    #スレッショルドのスクロールボックス
-    def create_lb(self):
-        th_listarray = [i for i in range(-45,-10)]
-        threshold = tk.StringVar(value = th_listarray)
-        self.lb = tk.Listbox(root, listvariable = threshold,width=10,height = 4)
-        self.lb.bind('<<ListboxSelect>>',self.th_selected)
-        self.lb.configure(selectmode = "single")
-        self.lb.place(x = 100,y = 210)
+
+        #スレッショルド（無音の閾値）入力
+    def create_th_entry(self):
+        self.th_entry = ttk.Entry(root,width = 10)
+        self.th_entry.place(x = 100,y = 200)
     
-    def create_th_scrollbar(self):
-        self.th_scrollbar = ttk.Scrollbar(root,orient = tk.VERTICAL,command =  self.lb.yview)
-        self.th_scrollbar.place(x = 80,y = 230)
-    
-        #無音区間のスクロールボックス
-    def create_silence_lb(self):
-        silence_list =  [i / 10 for i in range(1,51)]
-        silence_list = tk.StringVar(value = silence_list)
-        self.silence_lb = tk.Listbox(root, listvariable = silence_list,width=10,height = 4)
-        self.silence_lb.bind('<<ListboxSelect>>', self.silence_selected)
-        self.silence_lb.configure(selectmode = "single")
-        self.silence_lb.place(x = 250, y = 210)
-    
-    def create_silence_scrollbar(self):
-        self.silence_scrollbar = ttk.Scrollbar(root,orient = tk.VERTICAL ,command =  self.silence_lb.yview)
-        self.silence_scrollbar.place(x = 230,y = 230)
-        self.silence_lb['yscrollcommand'] = self.silence_scrollbar.set
-        
-"""
+        #無音区間入力
+    def create_silence_entry(self):
+        self.silence_entry = ttk.Entry(root,width = 10)
+        self.silence_entry.place(x = 250,y = 200)
+
+
+
+
     #説明のためのラベル
     def create_explain_lbl(self):
         self.explain_lbl = tk.Label(root,text = "動画を入力して、出力先を決めてください。\nスレッショルドは無音とみなす音量、\n無音区間は無音の部分が何秒続いたらカットするかを決めます")
@@ -293,24 +273,7 @@ class Application(tk.Frame):
         #print(self.output_path)
         #print(os.path.exists(self.output_path))
         return self.output_path
-"""
-    #スレッショルド（無音閾値）のリストボックスから値をとってくる
-    def th_selected(self,th_event):
-        #ここをforで回さないと、
-        #tkinter.TclError: bad listbox index "": must be active, anchor, end, @x,y, or a numberが出る。
-        #（理由不明）
-        for item_index in self.lb.curselection() :   #indexを取得
-            self.th_item = self.lb.get(item_index)
-            #print(self.th_item)
-            return self.th_item
-    
-    #無音区間のリストボックスから値をとってくる
-    def silence_selected(self,silence_event):
-            for item_index in self.silence_lb.curselection():    #indexを取得
-                self.silence_item = self.silence_lb.get(item_index)
-                #print(self.silence_item)
-                return self.silence_item
-"""    
+
     #def change(self,path):
         #self.path =  path.replace("\\","/")
         #return self.path
@@ -365,13 +328,12 @@ class Application(tk.Frame):
     def Execute(self):
         #入力値の検査
         self.input_path = self.input_entry.get()
-        print(self.input_path)
-        self.output_path = self.entry2.get()
-        print(self.output_path)
-        self.th_item = self.th_selected(self.lb)
-        self.silence_item = self.silence_selected(self.silence_lb)
-        print(self.th_item)
+        
+        self.output_path = self.output_entry.get()
+        self.th_item = self.th_entry.get()
+        self.silence_item = self.silence_entry.get()
         print(self.silence_item)
+        print(self.th_item)
         self.validatorFlag = self.validator(self.input_path,self.output_path)
         if self.validatorFlag == True :
             run(self.input_path,self.output_path,self.th_item ,self.silence_item)
