@@ -29,7 +29,7 @@ import pathlib
 #一応成功した。
 class DigestMaker:
     
-    def __init__(self,path,output = None,threshold = -33,silence_section = 0.5):
+    def __init__(self,path,output,threshold ,silence_section ):
         try:
             self.path = path
             self.output = output
@@ -41,6 +41,8 @@ class DigestMaker:
             
     
     def get_info(self):
+        print("silence ",self.silence_section)
+        print("threshold ",self.threshold)
 
         self.info = subprocess.run(["echo 'A'"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     
@@ -123,7 +125,7 @@ class DigestMaker:
 
 
 def run(path,output,threshold,silence_section):
-    movie = DigestMaker(path,output = output,threshold = "-30",silence_section = "0.4")    
+    movie = DigestMaker(path,output,threshold,silence_section)    
     try:
         info = movie.get_info()
     except OSError:
@@ -147,7 +149,7 @@ def run(path,output,threshold,silence_section):
             merge_list = movie.using_parts(starts_ends)
             movie.concatenate_videos(merge_list)
         except OSError:
-            showError("出力用のファイルのパスが間違っている可能性があります。")
+            showError("外部アプリとの連携が取れていない可能性があります。PC,アプリを再起動して見てください")
         else:
             showInfo("動画出力が完了しました。")
 
