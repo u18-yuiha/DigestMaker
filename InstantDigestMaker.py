@@ -1,6 +1,7 @@
 
 from tkinter import *
 from tkinter import messagebox
+import pyautogui
 #エラーが出た時などの共通処理
 def showError(msg : str):
     tk = Tk()
@@ -13,8 +14,6 @@ def showInfo(msg : str):
     tk.withdraw()
     messagebox.showinfo("お知らせ",msg)
     tk.destroy()
-
-
 
 
 import subprocess
@@ -179,72 +178,72 @@ class Application(tk.Frame):
         
      #frame
     def create_frame(self):
-        self.frame1 = ttk.Frame(root)
+        self.frame1 = ttk.Frame(win)
         self.frame1['height'] = 300
-        self.frame1['width'] = 600
+        self.frame1['width'] = 700
         self.frame1['relief'] = 'ridge'
         self.frame1['borderwidth'] = 10
         self.frame1.grid() 
     
     #input label
     def create_input_label(self):
-        self.input_lbl = tk.Label(root,text = '入力',width = 20,fg='#ff0000')
-        self.input_lbl.place(x = 10, y = 100)
+        self.input_lbl = tk.Label(self.frame1,text = '入力',width = 20,fg='#ff0000')
+        self.input_lbl.place(x = -10, y = 100)
 
     
         #input 参照
     def create_input_btn(self):
-        self.input_btn = tk.Button(root, text = '参照',bg = '#87cefa',command = self.input_open_file)
+        self.input_btn = tk.Button(self.frame1, text = '参照',bg = '#87cefa',command = self.input_open_file)
         self.input_btn.place(x = 550,y = 100)
     
         #output label
     def create_output_lbl(self):
-        self.output_lbl = tk.Label(root,text = '出力',width = 20,fg='#ff0000')
+        self.output_lbl = tk.Label(self.frame1,text = '出力',width = 20,fg='#ff0000')
         self.output_lbl.place(x = 10, y = 150)
     
         #output参照
     def create_output_btn(self):
-        self.output_btn = tk.Button(root,text = '参照',bg = '#87cefa',command = self.output_open_file)
+        self.output_btn = tk.Button(self.frame1,text = '参照',bg = '#87cefa',command = self.output_open_file)
         self.output_btn.place(x = 550,y = 150)
     
         #threshold
     def create_thre_lbl(self):
-        self.thre_lbl = tk.Label(root,text = '無音とみなす音量',bg = '#87cefa')
+        self.thre_lbl = tk.Label(self.frame1,text = '無音とみなす音量',bg = '#87cefa')
         self.thre_lbl.place(x = 100,y = 180)
     
         #無音区間
     def create_interval_lbl(self):
-        self.interval_lbl = tk.Label(root,text = '無音とみなす区間',bg = '#87cefa')
+        self.interval_lbl = tk.Label(self.frame1,text = '無音とみなす区間',bg = '#87cefa')
         self.interval_lbl.place(x = 250,y = 180)
     
     #実行ボタン
     def create_main_btn(self):
-        self.main_btn = tk.Button(root, text = '実行',bg = '#87cefa',width = 20,command = self.Execute)
+        self.main_btn = tk.Button(self.frame1, text = '実行',bg = '#87cefa',width = 20,command = self.Execute)
         self.main_btn.place(x = 400,y = 230)
     
         #helpボタン
     def create_help_btn(self):
-        self.help_btn = tk.Button(root,text = 'ヘルプ')
+        self.help_btn = tk.Button(self.frame1,text = 'ヘルプ')
         self.help_btn.place(x= 550,y = 10)
     
         #文字入力するところ（入力）
     def create_input_entry(self):
-        self.input_entry = ttk.Entry(root ,width = 70) 
+        self.input_entry = ttk.Entry(self.frame1,width = 70) 
         self.input_entry.place(x = 100,y = 100)
     
         #文字入力するところ（出力）
     def create_output_entry(self):
-        self.output_entry = ttk.Entry(root ,width = 70) 
+        self.output_entry = ttk.Entry(self.frame1,width = 70) 
         self.output_entry.place(x = 100,y = 150)
 
         #スレッショルド（無音の閾値）入力
     def create_th_entry(self):
-        self.th_entry = ttk.Entry(root,width = 10)
+        self.th_entry = ttk.Entry(self.frame1,width = 10)
         self.th_entry.place(x = 100,y = 200)
     
         #無音区間入力
     def create_silence_entry(self):
-        self.silence_entry = ttk.Entry(root,width = 10)
+        self.silence_entry = ttk.Entry(self.frame1,width = 10)
         self.silence_entry.place(x = 250,y = 200)
 
 
@@ -252,13 +251,14 @@ class Application(tk.Frame):
 
     #説明のためのラベル
     def create_explain_lbl(self):
-        self.explain_lbl = tk.Label(root,text = "動画を入力して、出力先を決めてください。\nスレッショルドは無音とみなす音量、\n無音区間は無音の部分が何秒続いたらカットするかを決めます")
+        self.explain_lbl = tk.Label(self.frame1,text = "動画を入力して、出力先を決めてください。\nスレッショルドは無音とみなす音量、\n無音区間は無音の部分が何秒続いたらカットするかを決めます")
         self.explain_lbl.place(x = 10, y = 10)
     
  
     #フォルダ検索
     def input_open_file(self):
-        input_file = tkfd.askopenfilenames(filetypes = [('mp4','*.mp4'),('MOV','*.MOV')])
+        input_file = tkfd.askopenfilenames(filetypes =
+                                           [('mp4','*.mp4'),('MOV','*.MOV'),('flv','*.flv'),('avi','*.avi'),('wmv','*.wmv')])
         input_file = ''.join(input_file)
         self.input_entry.insert('end',input_file)
         self.input_path = self.input_entry.get()
@@ -365,8 +365,13 @@ class Application(tk.Frame):
                 pass
 
 
+
+
+
 if __name__ == "__main__":
-    root = tk.Tk()
-    root.title("DigestMaker")
-    app = Application(master=root)
+   
+    win = tk.Tk()
+    win.title("DigestMaker")
+    app = Application(master=win)
     app.mainloop()
+    
