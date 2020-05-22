@@ -21,6 +21,7 @@ class Application(tk.Frame):
         Main.create_input_button(self.frame)
         Main.create_output_button(self.frame)
         Main.create_execute_button(self.frame)
+        Main.create_th_measure_button(self.frame)
 
 
 

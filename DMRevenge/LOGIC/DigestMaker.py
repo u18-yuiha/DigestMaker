@@ -9,6 +9,30 @@ import COMPONENT.BasicErrorComponent as BEC
 #from COMPONENT import *
 #class versionの作成。
 #一応成功した。
+
+
+
+def mean_volume_detect(path):
+
+    info = subprocess.run(["ffmpeg","-vn" ,"-i", path, "-af",
+                                        "volumedetect",
+                                        "-f", "null", "-"], encoding='utf-8',stdout=subprocess.PIPE, stderr=subprocess.PIPE,shell = True,
+                                        text = True)
+
+    info = str(info)
+    lines = info.split('\\n')
+
+    for line in lines:
+        if "mean_volume" in line:
+            line = line.split(" ")
+            mean_volume = line[-2]
+            mean_volume = float(mean_volume)
+            mean_volume = int(mean_volume)
+    return mean_volume
+
+
+
+
 class DigestMaker:
     
     def __init__(self,path,output,threshold ,silence_section ):

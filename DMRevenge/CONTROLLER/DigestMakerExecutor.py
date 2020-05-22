@@ -32,8 +32,8 @@ def th_validator(threshold):
         th_flag = False
     
     else: 
-        if threshold < -45 or -10 < threshold:
-            BEC.show_error("-45~-10までの整数を入力してください（半角英数)")
+        if threshold < -100 or -10 < threshold:
+            BEC.show_error("-100~-10までの整数を入力してください（半角英数)")
             th_flag = False
     
     finally:
@@ -55,7 +55,14 @@ def silence_validator(silence):
     finally:
         return silence_flag
 
-
+def measure_threshold(input_entry,th_entry):
+    input_path = input_entry.get()
+    input_flag = input_validator(input_path)
+    if input_flag == True:
+        mean_volume = DM.mean_volume_detect(input_path)
+        BEC.show_info(f"この動画の最小音量は約{mean_volume}dbです。\nスレッショルドは{mean_volume + 2}をお勧めします。")
+        th_entry.insert('end', mean_volume + 2)
+    
 
 
 class Input_path:
