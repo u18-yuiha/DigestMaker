@@ -55,6 +55,7 @@ class Create:
     def create_help_button(self,basic_frame):
         self.help_button = tk.Button(self.basic_frame)
         self.help_button['text'] = "ヘルプ"
+        self.help_button.bind("<Button-1>",DME.show_help())
         self.help_button.grid(row = 0,column = 3,padx = 10)
 
     def create_input_button(self,basic_frame):

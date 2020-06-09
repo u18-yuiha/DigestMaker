@@ -5,6 +5,7 @@ import VIEW.Main as vMain
 class Application(tk.Frame):
     def __init__(self,root):
         super().__init__(root)
+        root.title("DigstMaker")
         self.pack
         Main = vMain.Create(root)
         self.frame = Main.create_frame(root)
