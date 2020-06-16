@@ -5,6 +5,7 @@ import VIEW.Main as vMain
 class Application(tk.Frame):
     def __init__(self,root):
         super().__init__(root)
+        root.title("DigstMaker")
         self.pack
         Main = vMain.Create(root)
         self.frame = Main.create_frame(root)
@@ -21,6 +22,7 @@ class Application(tk.Frame):
         Main.create_input_button(self.frame)
         Main.create_output_button(self.frame)
         Main.create_execute_button(self.frame)
+        Main.create_th_measure_button(self.frame)
 
 
 

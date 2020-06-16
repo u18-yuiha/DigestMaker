@@ -2,6 +2,7 @@ import os.path
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog as tkfd
+from PIL import Image, ImageTk
 
 import COMPONENT.BasicErrorComponent as BEC
 import LOGIC.DigestMaker as DM
@@ -32,8 +33,8 @@ def th_validator(threshold):
         th_flag = False
     
     else: 
-        if threshold < -45 or -10 < threshold:
-            BEC.show_error("-45~-10までの整数を入力してください（半角英数)")
+        if threshold < -100 or -10 < threshold:
+            BEC.show_error("-100~-10までの整数を入力してください（半角英数)")
             th_flag = False
     
     finally:
@@ -55,7 +56,14 @@ def silence_validator(silence):
     finally:
         return silence_flag
 
-
+def measure_threshold(input_entry,th_entry):
+    input_path = input_entry.get()
+    input_flag = input_validator(input_path)
+    if input_flag == True:
+        mean_volume = DM.mean_volume_detect(input_path)
+        BEC.show_info(f"この動画の平均音量は約{mean_volume}dbです。\nスレッショルドは{mean_volume - 4}をお勧めします。")
+        th_entry.insert('end', mean_volume - 4)
+    
 
 
 class Input_path:
@@ -105,8 +113,10 @@ class Execute:
         else:
             BEC.show_info("処理を中止します。")
 
-
-
+def show_help():
+    pass
+    
+   
 
 
 if __name__ == "__main__":

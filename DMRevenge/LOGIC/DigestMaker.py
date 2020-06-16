@@ -9,6 +9,30 @@ import COMPONENT.BasicErrorComponent as BEC
 #from COMPONENT import *
 #class versionの作成。
 #一応成功した。
+
+
+
+def mean_volume_detect(path):
+
+    info = subprocess.run(["ffmpeg","-vn" ,"-i", path, "-af",
+                                        "volumedetect",
+                                        "-f", "null", "-"], encoding='utf-8',stdout=subprocess.PIPE, stderr=subprocess.PIPE,shell = True,
+                                        text = True)
+
+    info = str(info)
+    lines = info.split('\\n')
+
+    for line in lines:
+        if "mean_volume" in line:
+            line = line.split(" ")
+            mean_volume = line[-2]
+            mean_volume = float(mean_volume)
+            mean_volume = int(mean_volume)
+    return mean_volume
+
+
+
+
 class DigestMaker:
     
     def __init__(self,path,output,threshold ,silence_section ):
@@ -31,6 +55,7 @@ class DigestMaker:
                                     f"silencedetect=noise={self.threshold}dB:d={self.silence_section}",
                                     "-f", "null", "-"], encoding='utf-8',stdout=subprocess.PIPE, stderr=subprocess.PIPE,shell = True,
                                     text = True)
+        
         except IndexError:
             BEC.show_error("外部アプリとの接続エラーがはっせいしました。\nファイル名にひらがなの数字などを使っていませんか?")
         except:
@@ -121,6 +146,8 @@ def run(path,output,threshold,silence_section):
             movie.concatenate_videos(merge_list)
         except OSError:
             BEC.show_error("外部アプリとの連携が取れていない可能性があります。PC,アプリを再起動して見てください")
+        except ValueError:
+            BEC.show_error("不適切なデータが入力された可能性があります。出力先の端子などを確認してみてください。")
         except:
             BEC.show_error("予期せぬエラーが発生しました。")
         else:
