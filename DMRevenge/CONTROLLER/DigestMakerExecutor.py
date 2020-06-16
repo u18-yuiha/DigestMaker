@@ -152,7 +152,8 @@ class ShowHelp:
         help_label5_ex.grid(row = 7,sticky = tk.NW)
         help_label6 = tk.Label(window,text = "さらに詳しい操作方法の解説はこちら",pady = 5,relief = "groove")
         help_label6.grid(row = 8,sticky = tk.NW)
-        help_label6_ex = tk.Label(window,text = "https://youtu.be/wZ9KjdwX-9Q")
+        help_label6_ex = tk.Text(window)
+        help_label6_ex.insert('end',"https://youtu.be/wZ9KjdwX-9Q")
         help_label6_ex.grid(row = 9,sticky = tk.NW)
         window.mainloop()
         
