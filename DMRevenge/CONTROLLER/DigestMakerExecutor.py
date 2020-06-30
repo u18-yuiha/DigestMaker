@@ -126,12 +126,12 @@ class Help():
         self.window = tk.Toplevel(self.root)
         self.window.title("ヘルプ")
         self.window.geometry("600x400") # 画面サイズを1000 x 1000 とする 
-        # 画像を指定                                                                    
-        self.img = Image.open('DigestMaker\DMRevenge\CONTROLLER\helpImage.png')
-        w = self.img.width # 横幅を取得 
-        print(w)                                                     
-        h = self.img.height # 縦幅を取得 
-        print(h)                                                    
+        # 画像を指定    
+        self.img = os.path.dirname(__file__)  
+        self.img = Image.open(self.img + '\helpImage.png')                                                                 
+        #self.img = Image.open('DigestMaker\DMRevenge\CONTROLLER\helpImage.png')
+        w = self.img.width # 横幅を取得                                        
+        h = self.img.height # 縦幅を取得                                                  
         self.img = self.img.resize(( int(w * (600/w)), int(h * (500/w)) ))
         self.img = ImageTk.PhotoImage(self.img)
         # canvasサイズも画面サイズと同じにして描画                                      
