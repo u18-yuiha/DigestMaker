@@ -63,6 +63,7 @@ def silence_validator(silence):
         return silence_flag
 
 def measure_threshold(input_entry,th_entry):
+    th_entry.delete(0,tk.END)
     input_path = input_entry.get()
     input_flag = input_validator(input_path)
     if input_flag == True:
