@@ -3,9 +3,15 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog as tkfd
 from PIL import Image, ImageTk
-
+import sys
 import COMPONENT.BasicErrorComponent as BEC
 import LOGIC.DigestMaker as DM
+
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
 
 def input_validator(input_path):
     input_flag = True
@@ -127,9 +133,8 @@ class Help():
         self.window.title("ヘルプ")
         self.window.geometry("600x400") # 画面サイズを1000 x 1000 とする 
         # 画像を指定    
-        self.img = os.path.dirname(__file__)  
-        self.img = Image.open(self.img + '\helpImage.png')                                                                 
-        #self.img = Image.open('DigestMaker\DMRevenge\CONTROLLER\helpImage.png')
+        self.img = Image.open(resource_path('helpImage.png'))
+        
         w = self.img.width # 横幅を取得                                        
         h = self.img.height # 縦幅を取得                                                  
         self.img = self.img.resize(( int(w * (600/w)), int(h * (500/w)) ))
@@ -157,7 +162,8 @@ class Help():
         help_label5_ex.grid(row = 7,sticky = tk.NW)
         help_label6 = tk.Label(self.window,text = "さらに詳しい操作方法の解説はこちら",pady = 5,relief = "groove")
         help_label6.grid(row = 8,sticky = tk.NW)
-        help_label6_ex = tk.Label(self.window,text = "https://youtu.be/wZ9KjdwX-9Q")
+        help_label6_ex = tk.Text(self.window)
+        help_label6_ex.insert('end',"https://youtu.be/wZ9KjdwX-9Q")
         help_label6_ex.grid(row = 9,sticky = tk.NW)   
         self.window.lift()
 

@@ -23,6 +23,17 @@ class Application(tk.Frame):
         Main.create_output_button(self.frame)
         Main.create_execute_button(self.frame)
         Main.create_th_measure_button(self.frame)
+        self.grid_column(3)
+        self.grid_row(4)
+    
+    def grid_column(self,column_index):
+        for i in range(column_index + 1):
+            self.frame.grid_columnconfigure(i,weight = 1)
+
+    def grid_row(self,row_index):
+        for i in range(row_index + 1):
+            self.frame.grid_rowconfigure(i,weight = 1)
+    
 
 
 

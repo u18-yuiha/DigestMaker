@@ -11,7 +11,7 @@ class Create:
         #self.basic_frame['width'] = 600
         self.basic_frame['relief'] = 'ridge'
         self.basic_frame['borderwidth'] = 5
-        self.basic_frame.pack(expand = 1)
+        self.basic_frame.pack(expand = 1,fill = tk.BOTH)
         return self.basic_frame
 
     def create_input_label(self,basic_frame):
