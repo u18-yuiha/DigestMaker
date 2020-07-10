@@ -11,7 +11,7 @@ class Create:
         #self.basic_frame['width'] = 600
         self.basic_frame['relief'] = 'ridge'
         self.basic_frame['borderwidth'] = 5
-        self.basic_frame.pack(expand = 1)
+        self.basic_frame.pack(expand = 1,fill = tk.BOTH)
         return self.basic_frame
 
     def create_input_label(self,basic_frame):
@@ -55,7 +55,7 @@ class Create:
     def create_help_button(self,basic_frame):
         self.help_button = tk.Button(self.basic_frame)
         self.help_button['text'] = "ヘルプ"
-        self.help_button.bind("<Button-1>",DME.show_help())
+        self.help_button.bind("<Button-1>",DME.Help(self.root))
         self.help_button.grid(row = 0,column = 3,padx = 10)
 
     def create_input_button(self,basic_frame):
