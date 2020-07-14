@@ -91,7 +91,7 @@ class Output_path:
     def __call__ (self,output_entry):
         self.output_entry.delete(0,tk.END)
         f_type =  [
-            ('mp4','*.mp4'),('MOV','*.MOV'),('webm','*.webm'),('flv','*.flv'),('AMV','*.AMV')]
+            ('mp4','*.mp4'),('webm','*.webm')]
         output_file = tkfd.asksaveasfilename(filetypes= f_type,defaultextension = 'mp4' )
         output_file = str(output_file)
         self.output_entry.insert('end',output_file)
@@ -183,40 +183,3 @@ class Help():
 if __name__ == "__main__":
     import tkinter
     import tkinter.filedialog
-
-    class Application(tkinter.Frame):
-        def __init__(self, master=None):
-            super().__init__(master)
-            self.master = master
-            self.master.title('tkinter dialog trial')
-            self.pack()
-            self.create_widgets()
-
-        def create_widgets(self):
-            self.dialog_button = tkinter.Button(self, text='Save File As ...', command=file_open, width=120)
-            self.dialog_button.pack(anchor=tkinter.NW)
-
-            self.text_1 = tkinter.StringVar()
-            self.type_label = tkinter.Label(self, textvariable=self.text_1)
-            self.type_label.pack(anchor=tkinter.W)
-            self.text_2 = tkinter.StringVar()
-            self.content_label = tkinter.Label(self, textvariable=self.text_2)
-            self.content_label.pack(anchor=tkinter.W)
-
-    def file_open():
-        f_type = [('Text', '*.txt'), ('Markdown', '*.md'),('mp4','*.mp4')]
-        ini_dir = 'C:\\temp'
-        #defaultextensionでファイル端子も表現できる。
-        ret = tkinter.filedialog.asksaveasfilename(defaultextension='txt' , filetypes=f_type , initialdir=ini_dir, title='file dialog test')
-        app.text_1.set('Type : ' + str(type(ret)))
-        app.text_2.set('Content : ' + str(ret))
-
-    root = tkinter.Tk()
-    app = Application(master=root)
-    app.mainloop()
-    silence_list = ([i / 10 for i in range(1,31,1)])
-    a = 2.03
-    if not a in silence_list:
-        print("error")
-    else:
-        print("ok") 

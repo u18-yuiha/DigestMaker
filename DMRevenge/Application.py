@@ -1,6 +1,7 @@
 import tkinter as tk
 import VIEW
 import VIEW.Main as vMain
+import AuthID
 
 class Application(tk.Frame):
     def __init__(self,root):
@@ -36,11 +37,14 @@ class Application(tk.Frame):
     
 
 
-
-
 def main():
     app = Application(tk.Tk())
     app.mainloop()
 if __name__ == "__main__":
-    main()
+    AuthID.register_ID()
+    Auth_flag = AuthID.authentication()
+    if Auth_flag == True:
+        main()
+    else:
+        pass
     
