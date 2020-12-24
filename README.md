@@ -2,7 +2,9 @@
 ## はじめに
 このアプリは動画の音量を計測し、音量がユーザーの決めた基準以下の区間をカットして出力するものです。
 このアプリを使う前の前準備として、
+
 ➀zipファイルをダウンロードしてお好みの場所に解凍する。
+[DigestMaker配布版 - コピー.7z](https://github.com/u18-yuiha/DigestMaker/blob/master/DigestMaker%E9%85%8D%E5%B8%83%E7%89%88%20-%20%E3%82%B3%E3%83%94%E3%83%BC.7z)
 
 ②[FFmpeg](https://ffmpeg.org/)をインストールする。
 
