@@ -161,11 +161,11 @@ class Help():
         help_label5.grid(row = 6,sticky = tk.NW)
         help_label5_ex = tk.Label(self.window,text = "起動したときに一緒に出てくる黒い画面を見ると、処理の進捗が見れます。")
         help_label5_ex.grid(row = 7,sticky = tk.NW)
-        help_label6 = tk.Label(self.window,text = "さらに詳しい操作方法の解説はこちら",pady = 5,relief = "groove")
+        help_label6 = tk.Label(self.window,text = "さらに詳しい操作方法については同梱の取扱説明書をご覧ください。")
         help_label6.grid(row = 8,sticky = tk.NW)
-        help_label6_ex = tk.Text(self.window)
-        help_label6_ex.insert('end',"https://youtu.be/wZ9KjdwX-9Q")
-        help_label6_ex.grid(row = 9,sticky = tk.NW)   
+        #help_label6_ex = tk.Text(self.window)
+        #help_label6_ex.insert('end',"https://youtu.be/wZ9KjdwX-9Q")
+        #help_label6_ex.grid(row = 9,sticky = tk.NW)   
         self.window.lift()
 
     def __call__(self,root):
