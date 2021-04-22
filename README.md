@@ -17,7 +17,7 @@
 
 ## ご相談はこちら
 
-TwitterならDM,Youtubeの方はどっかの動画のコメント欄にでも書いてください。できるだけ対応できるよう善処はします。
+TwitterはDM,Youtubeの方は適当な動画のコメント欄に書いてください。できるだけ対応できるよう善処はします。
 
 [Youtube](https://www.youtube.com/channel/UCW5Fwo4pXArwZMfDbTJLOoQ)
 
